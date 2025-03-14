@@ -5,8 +5,10 @@ import java.awt.*;
 
 public class Kiosk extends JFrame {
 
-    private int HEIGHT = 100;
-    private int WIDTH = 100;
+    private int HEIGHT = 800;
+    private int WIDTH = 500;
+    private int Yaxis = 100;
+    private int Xaxis = 500;
 
     public Kiosk(){
         this.initialising();
@@ -20,7 +22,14 @@ public class Kiosk extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(null);
 
-        this.setPreferredSize(new Dimension(100, 100));
+        this.setSize(new Dimension(WIDTH, HEIGHT));
+        this.setLocation(Xaxis, Yaxis);
+        this.getContentPane().setBackground(Color.WHITE);
+
+        this.setVisible(true);
     }
+
+
+
 
 }
