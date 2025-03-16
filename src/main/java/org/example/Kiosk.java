@@ -2,15 +2,18 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Kiosk extends JFrame {
+public class Kiosk extends JFrame implements ActionListener {
 
     private int HEIGHT = 700;
     private int WIDTH = 500;
     private int Yaxis = 100;
     private int Xaxis = 500;
+    private JButton start;
 
     public Kiosk(){
         this.initialising();
@@ -36,14 +39,14 @@ public class Kiosk extends JFrame {
         this.setVisible(true);
     }
 
-    private void start() {
+    private JPanel start() {
         JPanel panel = new JPanel();
         panel.setBounds(50, 450, 400, 200);
         panel.setLayout(null);
         panel.setOpaque(true);
         panel.setBackground(new Color(0,0,0,0));
 
-        JButton start = new JButton("Start");
+        start = new JButton("Start");
         start.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         start.setFont(new Font("Times New Roman", Font.BOLD, 14));
         start.setForeground(Color.BLACK);
@@ -51,11 +54,13 @@ public class Kiosk extends JFrame {
         start.setFocusable(false);
         start.setBounds(100, 50, 200, 40);
 
+
+        start.addActionListener(this);
+
         panel.add(start);
         this.add(panel);
+        return panel;
     }
-
-
 
     private JPanel FoodMenu() {
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -138,6 +143,17 @@ public class Kiosk extends JFrame {
         foodPanel.add(foodPrice, BorderLayout.SOUTH);
 
         return foodPanel;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == start){
+            this.getContentPane().removeAll();
+            this.getContentPane().add(FoodMenu());
+            this.revalidate();
+            this.repaint();
+            System.out.println("Switched to Food Menu!");
+        }
     }
 }
 
