@@ -46,7 +46,6 @@ public class Kiosk extends JFrame implements ActionListener {
         panel.setBackground(new Color(0,0,0,0));
 
 
-
         start = new JButton("Start");
         start.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         start.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -162,7 +161,6 @@ public class Kiosk extends JFrame implements ActionListener {
         this.repaint();
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start){
@@ -173,6 +171,7 @@ public class Kiosk extends JFrame implements ActionListener {
             BackgroundPanel bgPanel = new BackgroundPanel();
             bgPanel.setBounds(0, 0, WIDTH, HEIGHT);
             this.add(bgPanel);
+            System.out.println("Switched to Home Menu!");
         }
     }
 }
