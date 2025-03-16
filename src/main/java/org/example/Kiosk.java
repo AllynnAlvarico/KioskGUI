@@ -2,6 +2,8 @@ package org.example;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Kiosk extends JFrame {
 
@@ -23,41 +25,34 @@ public class Kiosk extends JFrame {
 
         this.setSize(new Dimension(WIDTH, HEIGHT));
         this.setLocation(Xaxis, Yaxis);
-        this.getContentPane().setBackground(Color.RED);
+        this.setResizable(false);
 
-        this.add(start());
+        start();
+
+        BackgroundPanel bgPanel = new BackgroundPanel();
+        bgPanel.setBounds(0, 0, WIDTH, HEIGHT);
+        this.add(bgPanel);
 
         this.setVisible(true);
     }
 
-    public void paint(Graphics g)
-    {
-        Image image = new ImageIcon("resource\\background.png").getImage();
-        Image icon = new ImageIcon("resource\\icon.png").getImage();
-        Graphics2D g2d = (Graphics2D) g;
-        
-        g2d.drawImage(image, 0, 0, null);
-        g2d.drawImage(icon, 170, 330, null);
-
-    }
-
-    private JPanel start() {
+    private void start() {
         JPanel panel = new JPanel();
+        panel.setBounds(50, 450, 400, 200);
+        panel.setLayout(null);
+        panel.setOpaque(true);
+        panel.setBackground(new Color(0,0,0,0));
+
         JButton start = new JButton("Start");
-
-        panel.setLayout(new FlowLayout());
-
-
-
         start.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        start.setFont(new Font("New Time Roman", ~Font.BOLD, 14));
-        start.setForeground(Color.RED);
+        start.setFont(new Font("Times New Roman", Font.BOLD, 14));
+        start.setForeground(Color.BLACK);
         start.setBackground(Color.WHITE);
-        start.setPreferredSize(new Dimension(220, 40));
-        start.setLocation(100, 100);
+        start.setFocusable(false);
+        start.setBounds(100, 50, 200, 40);
 
         panel.add(start);
-        return panel;
+        this.add(panel);
     }
 
 
@@ -144,13 +139,16 @@ public class Kiosk extends JFrame {
 
         return foodPanel;
     }
+}
 
+class BackgroundPanel extends JPanel {
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Image image = new ImageIcon("resource\\background.png").getImage();
+        Image icon = new ImageIcon("resource\\icon.png").getImage();
+        g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
+        g.drawImage(icon, 170, 330, this);
 
-
-    
-
-
-
-
-
+    }
 }
