@@ -13,7 +13,7 @@ public class Kiosk extends JFrame implements ActionListener {
     private int WIDTH = 500;
     private int Yaxis = 100;
     private int Xaxis = 500;
-    private JButton start;
+    private JButton start, confirmButton, cancelButton;
 
     public Kiosk(){
         this.initialising();
@@ -31,7 +31,6 @@ public class Kiosk extends JFrame implements ActionListener {
         this.setResizable(false);
 
         start();
-
         BackgroundPanel bgPanel = new BackgroundPanel();
         bgPanel.setBounds(0, 0, WIDTH, HEIGHT);
         this.add(bgPanel);
@@ -46,6 +45,8 @@ public class Kiosk extends JFrame implements ActionListener {
         panel.setOpaque(true);
         panel.setBackground(new Color(0,0,0,0));
 
+
+
         start = new JButton("Start");
         start.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         start.setFont(new Font("Times New Roman", Font.BOLD, 14));
@@ -58,7 +59,10 @@ public class Kiosk extends JFrame implements ActionListener {
         start.addActionListener(this);
 
         panel.add(start);
+
+
         this.add(panel);
+
         return panel;
     }
 
@@ -80,14 +84,14 @@ public class Kiosk extends JFrame implements ActionListener {
         headerPanel.add(headerLabel);
 
         //setting the button and customize it with the size and color
-        JButton cancelButton = new JButton("Cancel");
+        cancelButton = new JButton("Cancel");
         cancelButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         cancelButton.setFont(new Font("New Time Roman",~Font.BOLD,14));
         cancelButton.setForeground(Color.BLACK);
         cancelButton.setBackground(Color.WHITE);
         cancelButton.setPreferredSize(new Dimension(220,40));
 
-        JButton confirmButton = new JButton("Confirm");
+        confirmButton = new JButton("Confirm");
         confirmButton.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         confirmButton.setFont(new Font("New Time Roman",~Font.BOLD,14));
         confirmButton.setForeground(Color.BLACK);
@@ -117,6 +121,9 @@ public class Kiosk extends JFrame implements ActionListener {
 //        JScrollPane scrollPane = new JScrollPane(middlePanel);
 //        this.getContentPane().add(scrollPane, BorderLayout.CENTER);
 
+        cancelButton.addActionListener(this);
+        confirmButton.addActionListener(this);
+
         return mainPanel;
     }
 
@@ -144,15 +151,24 @@ public class Kiosk extends JFrame implements ActionListener {
 
         return foodPanel;
     }
+    public void switchPanel(JPanel panel) {
+        this.getContentPane().removeAll();
+        this.getContentPane().add(panel);
+        this.revalidate();
+        this.repaint();
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == start){
-            this.getContentPane().removeAll();
-            this.getContentPane().add(FoodMenu());
-            this.revalidate();
-            this.repaint();
+            switchPanel(FoodMenu());
             System.out.println("Switched to Food Menu!");
+        } else if (e.getSource() == cancelButton) {
+            switchPanel(start());
+            BackgroundPanel bgPanel = new BackgroundPanel();
+            bgPanel.setBounds(0, 0, WIDTH, HEIGHT);
+            this.add(bgPanel);
         }
     }
 }
@@ -164,7 +180,7 @@ class BackgroundPanel extends JPanel {
         Image image = new ImageIcon("resource\\background.png").getImage();
         Image icon = new ImageIcon("resource\\icon.png").getImage();
         g.drawImage(image, 0, 0, this.getWidth(), this.getHeight(), this);
-        g.drawImage(icon, 170, 330, this);
+        g.drawImage(icon, 160, 330, this);
 
     }
 }
