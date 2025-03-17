@@ -4,8 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Kiosk extends JFrame implements ActionListener {
 
@@ -58,8 +56,6 @@ public class Kiosk extends JFrame implements ActionListener {
         start.addActionListener(this);
 
         panel.add(start);
-
-
         this.add(panel);
 
         return panel;
@@ -134,13 +130,19 @@ public class Kiosk extends JFrame implements ActionListener {
         foodPanel.setLayout(new BoxLayout(foodPanel,BoxLayout.Y_AXIS));
         foodPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0));
 
+//        Image productImage = image;
+        ImageIcon img = new ImageIcon("resource\\hamburger.jpg");
+        JLabel thumbnail = new JLabel("product");
+        thumbnail.setIcon(img);
+        thumbnail.setPreferredSize(new Dimension(WIDTH / 4, HEIGHT - 560));
+
         JPanel imagePanel = new JPanel(new FlowLayout());;
-        if (image != null) {
-            imagePanel.setPreferredSize(new Dimension(WIDTH / 4, HEIGHT - 560));
-        } else {
-            imagePanel.setPreferredSize(new Dimension(WIDTH / 4, HEIGHT - 580));
-            imagePanel.setBackground(Color.gray);
-        }
+//        if (image != null) {
+//            imagePanel.setPreferredSize(new Dimension(WIDTH / 4, HEIGHT - 560));
+//        } else {
+//            imagePanel.setPreferredSize(new Dimension(WIDTH / 4, HEIGHT - 580));
+//            imagePanel.setBackground(Color.gray);
+//        }
 
         JLabel foodName = new JLabel("Name: " + name);
         foodPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 10));
@@ -148,7 +150,7 @@ public class Kiosk extends JFrame implements ActionListener {
         JLabel foodPrice = new JLabel("Price: " + String.valueOf(price));
         foodPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 10));
 
-        foodPanel.add(imagePanel,BorderLayout.NORTH);
+        foodPanel.add(thumbnail,BorderLayout.NORTH);
         foodPanel.add(foodName, BorderLayout.CENTER);
         foodPanel.add(foodPrice, BorderLayout.SOUTH);
 
